@@ -182,43 +182,71 @@ public class AVLTree {
    * (It must implement IAVLNode)
    */
   public class AVLNode implements IAVLNode{
+  		int key;
+  		boolean virtual_key;
+  		String info;
+  		AVLNode left;
+  		AVLNode right;
+  		AVLNode parent = new AVLNode(0,null,null,null); // initial parent to what??
+  		/** virtual_key == true if this is virtual node */
+  		AVLNode(int key, String info, AVLNode left, AVLNode right){
+  			this.key = key;
+  			this.info = info;
+			this.virtual_key = (left == null && right == null);
+			this.left = left;
+			this.right = right;
+		}
+		/** CHECK WHAT ABOUT VIRTUAL NODES */
 		public int getKey()
 		{
-			return 42; // to be replaced by student code
+			return this.key;
 		}
+	   /** CHECK WHAT ABOUT VIRTUAL NODES */
 		public String getValue()
 		{
-			return null; // to be replaced by student code
+			return this.info;
 		}
-		public void setLeft(IAVLNode node)
+	   /** Set this.left to node, check if this.left had virtual_node and change it to false if necessary */
+	   public void setLeft(IAVLNode node)
 		{
-			return null; // to be replaced by student code
+			this.left = (AVLNode) node;
+			if (this.virtual_key) {
+				this.virtual_key = false;
+			}
 		}
-		public IAVLNode getLeft()
+	   /** Get this.left to node */
+	   public IAVLNode getLeft()
 		{
-			return null; // to be replaced by student code
+			return this.left;
 		}
-		public void setRight(IAVLNode node)
+	   /** Set this.right to node, check if this.right had virtual_node and change it to false if necessary */
+		public void setRight(IAVLNode node) {
+			this.right = (AVLNode) node;
+			if (this.virtual_key) {
+				this.virtual_key = false;
+			}
+		}
+	   /** Get this.right to node */
+	   public IAVLNode getRight()
 		{
-			return null; // to be replaced by student code
+			return this.right;
 		}
-		public IAVLNode getRight()
-		{
-			return null; // to be replaced by student code
-		}
+	   /** Set this.parent to node */
 		public void setParent(IAVLNode node)
 		{
-			return null; // to be replaced by student code
+			this.parent = (AVLNode) node;
 		}
+	   /** Get this.parent to node -- WHAT TO DO IF PARENT IS NULL? */
 		public IAVLNode getParent()
 		{
-			return null; // to be replaced by student code
+			return this.parent;
 		}
-		// Returns True if this is a non-virtual AVL node
+		/** Returns True if this is a non-virtual AVL node */
 		public boolean isRealNode()
 		{
-			return true; // to be replaced by student code
+			return this.virtual_key;
 		}
+
     public void setHeight(int height)
     {
       return null; // to be replaced by student code
